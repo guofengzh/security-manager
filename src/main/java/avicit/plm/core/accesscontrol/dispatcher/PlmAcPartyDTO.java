@@ -1,4 +1,4 @@
-package avicit.plm.core.accesscontrol.demo;
+package avicit.plm.core.accesscontrol.dispatcher;
 
 /**
  * [{"partId":"1","name":"n","weght":1}]

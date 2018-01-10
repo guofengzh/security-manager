@@ -1,4 +1,4 @@
-package avicit.plm.core.accesscontrol.context;
+package avicit.plm.core.accesscontrol.dispatcher;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface QueryParam {
+public @interface RequestHeader {
     String format() default "" ;
     String value() ;
 }

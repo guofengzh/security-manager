@@ -1,6 +1,5 @@
-package avicit.plm.core.accesscontrol.rest;
+package avicit.plm.core.accesscontrol.dispatcher;
 
-import avicit.plm.core.accesscontrol.context.BeanManager;
 import com.google.common.base.Splitter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,13 +31,13 @@ public class PlmComponentImplManager {
     @RequestMapping(value = "invokation", method = RequestMethod.GET)
     public ResponseEntity<?> invokationOnGet(HttpServletRequest request) {
         // got the component component class
-        String clz = "avicit.plm.core.accesscontrol.demo.InterfDemo" ;
+        String clz = "avicit.plm.core.accesscontrol.dispatcher.InterfDemo" ;
 
         Map<String, String> headerMap = getHeaderMap(request) ;
         String queryString = request.getQueryString() ;
         Map<String, String> queryStringMap = getQueryMap(queryString) ;
         try {
-            Object retObj = beanManager.invokeTarget(clz,RequestMethod.POST.name(), null, queryStringMap, headerMap) ;
+            Object retObj = beanManager.invokeTarget(clz,RequestMethod.GET.name(), null, queryStringMap, headerMap) ;
             return new ResponseEntity<Object>(retObj, HttpStatus.OK);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -52,7 +51,7 @@ public class PlmComponentImplManager {
     @RequestMapping(value = "invokation", method = RequestMethod.POST)
     public ResponseEntity<?> invokationOnPost(@RequestBody String body, HttpServletRequest request) {
         // got the component component class
-        String clz = "avicit.plm.core.accesscontrol.demo.InterfDemo" ;
+        String clz = "avicit.plm.core.accesscontrol.dispatcher.InterfDemo" ;
 
         Map<String, String> headerMap = getHeaderMap(request) ;
         String queryString = request.getQueryString() ;
@@ -80,6 +79,8 @@ public class PlmComponentImplManager {
     }
 
     private static Map<String, String> getQueryMap(String in){
+        if ( in == null || in.isEmpty() )
+            return new HashMap<>() ;
         Map<String, String> selectorMap = Splitter.on("&").withKeyValueSeparator("=").split(in);
         Map<String, String> resultMap = new HashMap<>() ;
         for (Map.Entry<String, String> entry : selectorMap.entrySet()) {

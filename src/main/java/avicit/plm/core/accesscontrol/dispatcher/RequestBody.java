@@ -1,4 +1,4 @@
-package avicit.plm.core.accesscontrol.context;
+package avicit.plm.core.accesscontrol.dispatcher;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

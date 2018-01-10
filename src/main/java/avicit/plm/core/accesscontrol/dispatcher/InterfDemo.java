@@ -1,6 +1,4 @@
-package avicit.plm.core.accesscontrol.demo;
-
-import avicit.plm.core.accesscontrol.context.RunIt;
+package avicit.plm.core.accesscontrol.dispatcher;
 
 import java.util.List;
 

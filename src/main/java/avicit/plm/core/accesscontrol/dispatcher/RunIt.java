@@ -1,4 +1,4 @@
-package avicit.plm.core.accesscontrol.context;
+package avicit.plm.core.accesscontrol.dispatcher;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 

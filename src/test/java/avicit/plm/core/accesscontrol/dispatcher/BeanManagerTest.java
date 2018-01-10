@@ -1,8 +1,5 @@
-package avicit.plm.core.accesscontrol.context;
+package avicit.plm.core.accesscontrol.dispatcher;
 
-import avicit.plm.core.accesscontrol.demo.PlmAcPartyDTO;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,11 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
