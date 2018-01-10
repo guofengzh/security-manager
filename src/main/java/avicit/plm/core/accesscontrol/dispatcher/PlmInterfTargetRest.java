@@ -21,9 +21,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "components")
-public class PlmComponentImplManager {
+public class PlmInterfTargetRest {
 
-    private static final Log logger = LogFactory.getLog(PlmComponentImplManager.class);
+    private static final Log logger = LogFactory.getLog(PlmInterfTargetRest.class);
 
     @Autowired
     private BeanManager beanManager ;
