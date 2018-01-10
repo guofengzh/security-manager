@@ -31,7 +31,7 @@ public class PlmComponentImplManager {
     @RequestMapping(value = "invokation", method = RequestMethod.GET)
     public ResponseEntity<?> invokationOnGet(HttpServletRequest request) {
         // got the component component class
-        String clz = "avicit.plm.core.accesscontrol.dispatcher.InterfDemo" ;
+        String clz = "avicit.plm.core.accesscontrol.dispatcher.demo.PartyTarget" ;
 
         Map<String, String> headerMap = getHeaderMap(request) ;
         String queryString = request.getQueryString() ;
@@ -51,7 +51,7 @@ public class PlmComponentImplManager {
     @RequestMapping(value = "invokation", method = RequestMethod.POST)
     public ResponseEntity<?> invokationOnPost(@RequestBody String body, HttpServletRequest request) {
         // got the component component class
-        String clz = "avicit.plm.core.accesscontrol.dispatcher.InterfDemo" ;
+        String clz = "avicit.plm.core.accesscontrol.dispatcher.demo.PartyTarget" ;
 
         Map<String, String> headerMap = getHeaderMap(request) ;
         String queryString = request.getQueryString() ;

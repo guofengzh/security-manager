@@ -1,10 +1,6 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
-import avicit.plm.core.accesscontrol.dispatcher.PlmAcPartyDTO;
-import avicit.plm.core.accesscontrol.dispatcher.QueryParam;
-import avicit.plm.core.accesscontrol.dispatcher.RequestBody;
-import avicit.plm.core.accesscontrol.dispatcher.RequestHeader;
-import avicit.plm.core.accesscontrol.dispatcher.RunIt;
+import avicit.plm.core.accesscontrol.dispatcher.demo.PlmAcPartyDTO;
 
 import java.util.List;
 
