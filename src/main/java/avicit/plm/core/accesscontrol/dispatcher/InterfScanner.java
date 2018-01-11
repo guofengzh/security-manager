@@ -26,7 +26,6 @@ public class InterfScanner {
                .filterInputsBy(new FilterBuilder().includePackage(rootPackage)));
 
         Set<Class<?>> clazzes = reflections.getTypesAnnotatedWith(InterfClassDescription.class);
-        System.out.println("++++++++++++++:"+clazzes.size());
 
         InterfDescription interfDescription = new InterfDescription() ;
         for(Class<?> clazz : clazzes ) {

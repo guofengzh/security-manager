@@ -7,7 +7,6 @@ import java.util.List;
 
 public class InterfPackage {
     private String name ;
-    private String parent ;
     private String description ;
     private List<InterfClazz> clazzes = new ArrayList<InterfClazz>();
 
@@ -22,14 +21,6 @@ public class InterfPackage {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
     }
 
     public String getDescription() {
@@ -63,5 +54,14 @@ public class InterfPackage {
                 description = className ;
         }
         clazzes.add(new InterfClazz(className, description)) ;
+    }
+
+    @Override
+    public String toString() {
+        return "InterfPackage{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", clazzes=" + clazzes +
+                '}';
     }
 }
