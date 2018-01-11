@@ -70,7 +70,7 @@ public class PlmInterfTargetRest {
     }
 
     private Map<String, String> getHeaderMap(HttpServletRequest request) {
-        Map<String, String> headerMap = new HashMap<>() ;
+        Map<String, String> headerMap = new HashMap<String, String>() ;
         Enumeration<String> names = request.getHeaderNames() ;
         while (names.hasMoreElements()) {
             String name = names.nextElement() ;
@@ -81,9 +81,9 @@ public class PlmInterfTargetRest {
 
     private static Map<String, String> getQueryMap(String in){
         if ( in == null || in.isEmpty() )
-            return new HashMap<>() ;
+            return new HashMap<String, String>() ;
         Map<String, String> selectorMap = Splitter.on("&").withKeyValueSeparator("=").split(in);
-        Map<String, String> resultMap = new HashMap<>() ;
+        Map<String, String> resultMap = new HashMap<String, String>() ;
         for (Map.Entry<String, String> entry : selectorMap.entrySet()) {
             String key = entry.getKey().trim() ;
             String value = null;

@@ -25,14 +25,11 @@ public class InferfDescriptionTest {
 
     InterfDescription interfDescription ;
 
-    @Before
-    public void setupInterfDescription() {
-        interfDescription = interfScanner.scan("avicit.plm.core.accesscontrol.dispatcher");
-    }
-
     @Test
     public void interfDescriTest() {
+        interfDescription = interfScanner.scan("avicit.plm.core.accesscontrol.dispatcher.target");
         Collection<InterfPackage> packages = interfDescription.getInterfDescription() ;
+        System.out.println("**********:" + packages.size()) ;
         Assert.assertTrue(packages.size() == 1) ;
         InterfPackage p = packages.iterator().next() ;
         Assert.assertEquals(p.getName(), MockTarget.class.getPackage().getName());

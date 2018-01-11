@@ -33,7 +33,7 @@ public class BeanManager {
     @Autowired
     private ObjectMapper jacksonObjectMapper;
 
-    private WeakHashMap<String, Object> cache = new WeakHashMap<>();
+    private WeakHashMap<String, Object> cache = new WeakHashMap<String, Object>();
 
     /**
      * retrieve a bean from the bean context
