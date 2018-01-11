@@ -6,11 +6,25 @@ import java.util.List;
 
 @InterfClassDescription("The Interf Class Description")
 public class MockTarget {
+    /**
+     * Body:
+     *   {"partId":"1","name":"n","weght":1}
+     *
+     * @param part
+     * @return
+     */
     @RunIt
     public String execGet(PlmAcPartyDTO part) {
         return "1234" ;
     }
 
+    /**
+     * Body:
+     *   [{"partId":"1","name":"n","weght":1}]
+     *
+     * @param part
+     * @return
+     */
     @RunIt("POST")
     public String execPost(List<PlmAcPartyDTO> part) {
         return "9876" ;

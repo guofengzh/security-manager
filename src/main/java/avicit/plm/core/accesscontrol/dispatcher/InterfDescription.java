@@ -1,6 +1,7 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
 import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfPackageDescription;
+import avicit.plm.core.accesscontrol.dispatcher.model.InterfClazz;
 import avicit.plm.core.accesscontrol.dispatcher.model.InterfPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,12 +34,12 @@ public class InterfDescription {
         return packages.get(packgeName) ;
     }
 
-    public void addClass(Class<?> clazz) {
+    public InterfClazz addClass(Class<?> clazz) {
         Package pack = clazz.getPackage() ;
         InterfPackage interfPackage = packages.get(pack.getName()) ;
         if (interfPackage == null ) {
             interfPackage = addPackage(pack) ;
         }
-        interfPackage.addClazz(clazz) ;
+        return interfPackage.addClazz(clazz) ;
     }
 }

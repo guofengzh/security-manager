@@ -31,8 +31,10 @@ public class InferfDescriptionTest {
         InterfPackage p = packages.iterator().next() ;
         Assert.assertEquals(p.getName(), MockTarget.class.getPackage().getName());
         Assert.assertEquals(p.getDescription(),MockTarget.class.getPackage().getAnnotation(InterfPackageDescription.class).value());
-        InterfClazz interfClazz = p.getClazzes().get(0) ;
+        InterfClazz interfClazz = p.getClazzes().iterator().next() ;
         Assert.assertEquals(interfClazz.getName(), MockTarget.class.getName());
         Assert.assertEquals(interfClazz.getDescription(), MockTarget.class.getAnnotation(InterfClassDescription.class).value());
+
+        Assert.assertTrue(interfClazz.getMethods().size() == 8);
     }
 }

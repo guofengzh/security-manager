@@ -2,13 +2,17 @@ package avicit.plm.core.accesscontrol.dispatcher.model;
 
 import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfClassDescription;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class InterfPackage {
     private String name ;
     private String description ;
-    private List<InterfClazz> clazzes = new ArrayList<InterfClazz>();
+    private Set<InterfClazz> clazzes = new TreeSet<InterfClazz>(new Comparator<InterfClazz>() {
+        @Override
+        public int compare(InterfClazz o1, InterfClazz o2) {
+            return o1.getDescription().compareTo(o2.getDescription()) ;
+        }
+    });
 
     public InterfPackage(String name, String description) {
         this.name = name;
@@ -31,11 +35,11 @@ public class InterfPackage {
         this.description = description;
     }
 
-    public List<InterfClazz> getClazzes() {
+    public Set<InterfClazz> getClazzes() {
         return clazzes;
     }
 
-    public void setClazzes(List<InterfClazz> clazzes) {
+    public void setClazzes(Set<InterfClazz> clazzes) {
         this.clazzes = clazzes;
     }
 
@@ -44,7 +48,7 @@ public class InterfPackage {
      *
      * @param clazz
      */
-    public void addClazz(Class<?> clazz) {
+    public InterfClazz addClazz(Class<?> clazz) {
         String className = clazz.getName() ;
         String description = className ;
         InterfClassDescription interfClassDescription = clazz.getAnnotation(InterfClassDescription.class) ;
@@ -53,7 +57,9 @@ public class InterfPackage {
             if (description.isEmpty())
                 description = className ;
         }
-        clazzes.add(new InterfClazz(className, description)) ;
+        InterfClazz interfClazz = new InterfClazz(className, description) ;
+        clazzes.add(interfClazz) ;
+        return interfClazz ;
     }
 
     @Override

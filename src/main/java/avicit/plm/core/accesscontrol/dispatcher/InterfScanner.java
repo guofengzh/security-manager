@@ -2,6 +2,8 @@ package avicit.plm.core.accesscontrol.dispatcher;
 
 import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfClassDescription;
 import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfPackageDescription;
+import avicit.plm.core.accesscontrol.dispatcher.annotation.RunIt;
+import avicit.plm.core.accesscontrol.dispatcher.model.InterfClazz;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
@@ -11,6 +13,7 @@ import org.reflections.util.FilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
 @Component
@@ -30,7 +33,13 @@ public class InterfScanner {
         InterfDescription interfDescription = new InterfDescription() ;
         for(Class<?> clazz : clazzes ) {
             Package pack = clazz.getPackage();
-            interfDescription.addClass(clazz);
+            InterfClazz interfClazz = interfDescription.addClass(clazz);
+            for (Method method : clazz.getDeclaredMethods()) {
+                RunIt runIt = method.getAnnotation(RunIt.class);
+                if ( runIt == null)
+                    continue;
+                interfClazz.addMethod(method) ;
+            }
         }
         return interfDescription ;
     }
