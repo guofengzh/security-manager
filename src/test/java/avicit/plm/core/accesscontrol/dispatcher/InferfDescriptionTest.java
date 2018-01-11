@@ -16,11 +16,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.PostConstruct;
 import java.util.Collection;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {TestConfig.class})
 public class InferfDescriptionTest {
+
+    @Autowired
+    InterfScanner interfScanner ;;
 
     @Test
     public void interfDescriTest() {
-        InterfDescription interfDescription = new InterfScanner().scan("avicit.plm.core.accesscontrol.dispatcher.target");
+        InterfDescription interfDescription = interfScanner.scan("avicit.plm.core.accesscontrol.dispatcher.target");
         Collection<InterfPackage> packages = interfDescription.getInterfDescription() ;
         Assert.assertTrue(packages.size() == 1) ;
         InterfPackage p = packages.iterator().next() ;
