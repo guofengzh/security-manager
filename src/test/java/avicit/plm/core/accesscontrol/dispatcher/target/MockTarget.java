@@ -1,9 +1,10 @@
-package avicit.plm.core.accesscontrol.dispatcher;
+package avicit.plm.core.accesscontrol.dispatcher.target;
 
-import avicit.plm.core.accesscontrol.dispatcher.demo.PlmAcPartyDTO;
+import avicit.plm.core.accesscontrol.dispatcher.annotation.*;
 
 import java.util.List;
 
+@InterfClassDescription("The Interf Class Description")
 public class MockTarget {
     @RunIt
     public String execGet(PlmAcPartyDTO part) {

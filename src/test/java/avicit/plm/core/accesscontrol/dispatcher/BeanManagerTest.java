@@ -1,5 +1,6 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
+import avicit.plm.core.accesscontrol.dispatcher.target.MockTarget;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;

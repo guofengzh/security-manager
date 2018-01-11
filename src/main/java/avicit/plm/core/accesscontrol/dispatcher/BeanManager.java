@@ -1,5 +1,9 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
+import avicit.plm.core.accesscontrol.dispatcher.annotation.QueryParam;
+import avicit.plm.core.accesscontrol.dispatcher.annotation.RequestBody;
+import avicit.plm.core.accesscontrol.dispatcher.annotation.RequestHeader;
+import avicit.plm.core.accesscontrol.dispatcher.annotation.RunIt;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +65,15 @@ public class BeanManager {
     public Method getMethod(Object obj, String match) {
         Method foundMethod = null ;
         for (Method method : obj.getClass().getDeclaredMethods()) {
-            Annotation annotation = method.getAnnotation(RunIt.class);
-            RunIt runIt = (RunIt) annotation;
+            // check method name match
+            String methodName = method.getName() ;
+            if (match.equalsIgnoreCase(methodName)) {
+                foundMethod  = method ;
+                break;
+            }
+
+            // check match definition with annotation
+            RunIt runIt = method.getAnnotation(RunIt.class);
             if ( runIt == null)
                 continue;
             Pattern pattern = Pattern.compile(runIt.value());

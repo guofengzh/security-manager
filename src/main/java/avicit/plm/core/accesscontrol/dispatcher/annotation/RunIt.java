@@ -1,4 +1,4 @@
-package avicit.plm.core.accesscontrol.dispatcher;
+package avicit.plm.core.accesscontrol.dispatcher.annotation;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,4 +13,5 @@ import java.util.Collection;
 public @interface RunIt {
     /** a regression to match the input */
     String value() default "GET" ;
+    String description() default "" ;
 }
