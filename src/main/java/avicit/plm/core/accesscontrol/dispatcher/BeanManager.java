@@ -33,7 +33,8 @@ public class BeanManager {
     @Autowired
     private ObjectMapper jacksonObjectMapper;
 
-    private WeakHashMap<String, Object> cache = new WeakHashMap<String, Object>();
+    @Autowired
+    private ClassManager classManager ;
 
     /**
      * retrieve a bean from the bean context
@@ -43,17 +44,11 @@ public class BeanManager {
      * @throws ClassNotFoundException
      */
     public Object getBean(String className) throws ClassNotFoundException {
-
-        if (cache.containsKey(className))
-            return cache.get(className) ;
-        else {
-            Class aClass = getClass().getClassLoader().loadClass(className);
-            AutowireCapableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
-            Object newBean = beanFactory.createBean(aClass,AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-            beanFactory.initializeBean(newBean, className);
-            cache.put(className, newBean) ;
-            return  newBean ;
-        }
+        Class aClass = getClass().getClassLoader().loadClass(className);
+        AutowireCapableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
+        Object newBean = beanFactory.createBean(aClass,AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+        beanFactory.initializeBean(newBean, className);
+        return  newBean ;
     }
 
     /**
