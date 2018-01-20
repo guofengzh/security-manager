@@ -1,0 +1,1 @@
+this simulate the spring context created by a component implementation definition.

@@ -1,9 +1,10 @@
-package avicit.plm.core.accesscontrol.dispatcher.javaconfig;
+package avicit.plm.core.accesscontrol.dispatcher.spring.java.config;
 
 import avicit.plm.core.accesscontrol.dispatcher.BeanManager;
 import avicit.plm.core.accesscontrol.dispatcher.ClassManager;
 import avicit.plm.core.accesscontrol.dispatcher.TestConfig;
-import avicit.plm.core.accesscontrol.dispatcher.javaconfig.CUT.SpringTarget;
+import avicit.plm.core.accesscontrol.dispatcher.spring.java.config.CUT.SpringTarget;
+import avicit.plm.core.accesscontrol.dispatcher.spring.java.config.PDM.JavaConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

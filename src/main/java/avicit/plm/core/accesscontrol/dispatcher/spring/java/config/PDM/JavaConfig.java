@@ -1,11 +1,8 @@
-package avicit.plm.core.accesscontrol.dispatcher.javaconfig;
+package avicit.plm.core.accesscontrol.dispatcher.spring.java.config.PDM;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 /**
  * A Spring JavaConfig
