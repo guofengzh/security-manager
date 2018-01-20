@@ -33,6 +33,11 @@ public class ClassManager {
         }
     }
 
+    /**
+     * remove class path
+     *
+     * @param pathOrJsr
+     */
     public void removePath(String pathOrJsr) {
         // remove the loader
         JarClassLoader jcl = loaders.remove(pathOrJsr) ;
@@ -86,6 +91,32 @@ public class ClassManager {
         throw new ClassNotFoundException(ex.getMessage(), ex) ;
     }
 
+    /**
+     * get the class loader
+     *
+     * @param clz
+     * @return
+     */
+    public JarClassLoader loadedBy(String clz) {
+        return classesNLoader.get(clz) ;
+    }
+
+    /**
+     * get locaded classes by the loader
+     *
+     * @param jcl
+     * @return
+     */
+    public Set<String> getLoadedClasses(JarClassLoader jcl) {
+        return loaderNClasses.get(jcl) ;
+    }
+
+    /**
+     * set up the cache
+     * 
+     * @param jcl
+     * @param className
+     */
     private void cacheLoader(JarClassLoader jcl, String className) {
         // class and its loader
         classesNLoader.put(className, jcl) ;

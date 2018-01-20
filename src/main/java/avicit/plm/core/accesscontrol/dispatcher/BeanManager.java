@@ -44,10 +44,9 @@ public class BeanManager {
      * @throws ClassNotFoundException
      */
     public Object getBean(String className) throws ClassNotFoundException {
-        Class aClass = getClass().getClassLoader().loadClass(className);
         AutowireCapableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
-        Object newBean = beanFactory.createBean(aClass,AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-        beanFactory.initializeBean(newBean, className);
+        Object newBean = classManager.newInstance(className) ;
+        beanFactory.autowireBean(newBean);
         return  newBean ;
     }
 

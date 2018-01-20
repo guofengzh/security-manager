@@ -1,5 +1,6 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.context.DefaultContextLoader;
 import org.xeustechnologies.jcl.context.JclContext;
 
+import java.util.Set;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestConfig.class})
 public class LoaderTest {
@@ -18,36 +21,19 @@ public class LoaderTest {
     ClassManager classManager ;
 
     @Test
-    @Ignore
-    public void loaderTest() {
-        String clz = "com.avicit.mybatis.tutorial.App";
-        try {
-            Object o = classManager.newInstance(clz);
-            System.out.println("Load success1");
-        } catch (Exception e) {
-            // should throw exception
-            e.printStackTrace();
-        }
+    public void loaderTest() throws ClassNotFoundException {
+        String clz = MockClass.class.getCanonicalName();
+        classManager.addPath("target/test-classes");
+        Object o = classManager.newInstance(clz);
 
-        System.out.println("Please copy the jar to lib");
-        try {
-            Thread.sleep(10 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        JarClassLoader jcl = classManager.loadedBy(clz) ;
+        Assert.assertNotNull(jcl);
 
-        classManager.addPath("D:/projects/PDM/security-component/lib/");
+        Set<String> loadedClasses = classManager.getLoadedClasses(jcl) ;
+        Assert.assertTrue(loadedClasses.contains(clz));
 
-        JclObjectFactory factory = JclObjectFactory.getInstance();
-
-        System.out.println("Load again");
-        try {
-            Object o = classManager.newInstance(clz);
-            System.out.println("Load success2");
-        } catch (Exception e) {
-            // should throw exception
-            e.printStackTrace();
-        }
-        System.out.println("Done");
+        classManager.removePath("target/test-classes") ;
+        Assert.assertNull(classManager.loadedBy(clz));
+        Assert.assertNull(classManager.getLoadedClasses(jcl));
     }
 }
