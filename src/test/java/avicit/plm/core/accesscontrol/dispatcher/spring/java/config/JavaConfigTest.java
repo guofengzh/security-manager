@@ -24,7 +24,7 @@ public class JavaConfigTest {
     ClassManager classManager ;
 
     /**
-     * We test that spring can work well when bean is loaded by standard classloader and
+     * We test that spring can work well when bean is loaded by standard classloader (PDM context) and
      * our curstomer class loaded - see
      *
      * @throws Exception
