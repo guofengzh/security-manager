@@ -1,5 +1,6 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,20 @@ public class LoaderTest {
     ClassManager classManager ;
 
     @Test
+    @Ignore
     public void loaderTest() {
-        String clz = "com.avicit.mybatis.tutorial.App" ;
+        String clz = "com.avicit.mybatis.tutorial.App";
         try {
             Object o = classManager.newInstance(clz);
             System.out.println("Load success1");
-        } catch (Exception e ) {
+        } catch (Exception e) {
             // should throw exception
             e.printStackTrace();
         }
 
-        System.out.println("Please copy the jar to lib") ;
+        System.out.println("Please copy the jar to lib");
         try {
-            Thread.sleep(10 * 1000 );
+            Thread.sleep(10 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,11 +44,10 @@ public class LoaderTest {
         try {
             Object o = classManager.newInstance(clz);
             System.out.println("Load success2");
-        } catch (Exception e ) {
+        } catch (Exception e) {
             // should throw exception
             e.printStackTrace();
         }
         System.out.println("Done");
-
     }
 }
