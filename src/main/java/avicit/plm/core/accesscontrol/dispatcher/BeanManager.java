@@ -98,6 +98,10 @@ public class BeanManager {
             throws ClassNotFoundException, IOException, InvocationTargetException, IllegalAccessException {
         Object targetObj = getBean(targetClass) ;
         Method method = getMethod(targetObj, criteria) ;
+        if (method == null) {
+            Exception ex = new RuntimeException("No method found for " + criteria) ;
+            throw new InvocationTargetException(ex) ;
+        }
         Object paramObject = null ;
         paramObject = deserializeByMethodParameterType(body, method,queryStringMap, headerMap) ;
         Object retObj = invoke(targetObj, method, paramObject) ;

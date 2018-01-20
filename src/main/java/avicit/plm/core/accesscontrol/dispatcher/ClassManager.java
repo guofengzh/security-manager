@@ -1,5 +1,7 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
@@ -78,7 +80,7 @@ public class ClassManager {
         }
 
         // iterate all loaders to find a loader
-        JclException ex = null ;
+        Exception ex = new IllegalStateException("No class loader configured");
         for (JarClassLoader jcl : loaders.values()) {
             try {
                 Object o = factory.create(jcl, className, args);
@@ -113,7 +115,7 @@ public class ClassManager {
 
     /**
      * set up the cache
-     * 
+     *
      * @param jcl
      * @param className
      */
@@ -131,4 +133,45 @@ public class ClassManager {
         }
         classes.add(className) ;
     }
+
+    public void createSubContext(ApplicationContext context, JarClassLoader classLoader) {
+        AnnotationConfigApplicationContext subContext = new AnnotationConfigApplicationContext();
+        subContext.setClassLoader(classLoader);
+        subContext.setParent(context);
+
+        /*
+        Properties properties = new Properties();
+        properties.setProperty("dbName", dbName);
+
+        PropertiesPropertySource propertySource = new PropertiesPropertySource("dbProperties", properties);
+
+        StandardEnvironment env = new StandardEnvironment();
+        env.getPropertySources().addLast(propertySource);
+
+        subContext.setEnvironment(env);
+        subContext.register(JpaConfig.class);
+        subContext.refresh();
+        */
+    }
+
+    /*
+        @Configuration
+        @ComponentScan
+        @EnableJpaRepositories
+        @EnableAutoConfiguration
+        public class JpaConfig {
+
+            @Value("${dbName}")
+            private String dbName;
+
+            @Bean
+            DataSource dataSource() {
+                return DataSourceBuilder.create()
+                        .url("jdbc:h2:mem:" + dbName)
+                        .username("sa")
+                        .password("")
+                        .build();
+            }
+        }
+     */
 }
