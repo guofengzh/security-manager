@@ -1,7 +1,6 @@
 package avicit.plm.core.accesscontrol.dispatcher;
 
 import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfClassDescription;
-import avicit.plm.core.accesscontrol.dispatcher.annotation.InterfPackageDescription;
 import avicit.plm.core.accesscontrol.dispatcher.annotation.RunIt;
 import avicit.plm.core.accesscontrol.dispatcher.model.InterfClazz;
 import org.reflections.Reflections;
@@ -12,21 +11,26 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xeustechnologies.jcl.JarClassLoader;
 
 import java.lang.reflect.Method;
 import java.util.*;
 
 @Component
 public class InterfScanner {
+    @Autowired
+    ClassManager classManager ;
 
     public InterfDescription scan(String...rootPackage) {
         List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
         classLoadersList.add(ClasspathHelper.contextClassLoader());
         classLoadersList.add(ClasspathHelper.staticClassLoader());
+        Collection<? extends ClassLoader> classLoaders = classManager.getClassLoaders() ;
         Reflections reflections  = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
                 .setScanners(new SubTypesScanner(false), new TypeAnnotationsScanner())
-               .filterInputsBy(new FilterBuilder().includePackage(rootPackage)));
+               .filterInputsBy(new FilterBuilder().includePackage(rootPackage))
+               .addClassLoaders(new ArrayList<>(classLoaders)));
 
         Set<Class<?>> clazzes = reflections.getTypesAnnotatedWith(InterfClassDescription.class);
 

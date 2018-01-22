@@ -12,13 +12,13 @@ import java.util.*;
 @Component
 public class ClassManager {
     private JclObjectFactory factory = JclObjectFactory.getInstance();
-    private static final Map<String, JarClassLoader> loaders = Collections
+    private final Map<String, JarClassLoader> loaders = Collections
             .synchronizedMap( new HashMap<String, JarClassLoader>() );
 
-    private static final Map<String, JarClassLoader> classesNLoader = Collections
+    private final Map<String, JarClassLoader> classesNLoader = Collections
             .synchronizedMap( new HashMap<String, JarClassLoader>() );
 
-    private static final Map<JarClassLoader, Set<String>> loaderNClasses = Collections
+    private final Map<JarClassLoader, Set<String>> loaderNClasses = Collections
             .synchronizedMap( new HashMap<JarClassLoader, Set<String>>() );
 
     /**
@@ -52,6 +52,7 @@ public class ClassManager {
             return;
         for (String c : loadedClasses ) {
             classesNLoader.remove(c) ;
+            jcl.unloadClass(c);
         }
     }
 
@@ -94,7 +95,7 @@ public class ClassManager {
     }
 
     /**
-     * get the class loader
+     * get the classloader
      *
      * @param clz
      * @return
@@ -111,6 +112,15 @@ public class ClassManager {
      */
     public Set<String> getLoadedClasses(JarClassLoader jcl) {
         return loaderNClasses.get(jcl) ;
+    }
+
+    /**
+     * the current class loaders
+     *
+     * @return
+     */
+    public Collection<? extends ClassLoader> getClassLoaders() {
+        return loaders.values() ;
     }
 
     /**
@@ -134,6 +144,12 @@ public class ClassManager {
         classes.add(className) ;
     }
 
+    /**
+     * TODO - sample here
+     *
+     * @param context
+     * @param classLoader
+     */
     public void createSubContext(ApplicationContext context, JarClassLoader classLoader) {
         AnnotationConfigApplicationContext subContext = new AnnotationConfigApplicationContext();
         subContext.setClassLoader(classLoader);
