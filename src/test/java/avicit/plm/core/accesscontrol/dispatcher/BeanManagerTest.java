@@ -2,7 +2,9 @@ package avicit.plm.core.accesscontrol.dispatcher;
 
 import avicit.plm.core.accesscontrol.dispatcher.target.MockTarget;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,8 @@ import java.util.*;
 public class BeanManagerTest {
     @Autowired
     BeanManager beanManager ;
-    ObjectMapper objectMapper = new ObjectMapper() ;
+    @Autowired
+    ClassManager classManager ;
 
     String clz = MockTarget.class.getCanonicalName() ;
 

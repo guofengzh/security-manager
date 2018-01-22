@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 //@ComponentScan
 public class AppJavaConfig {
 
-    @Bean("companyService")
+    @Bean(name="companyService")
     public CompanyService companyService() {
         return new CompanyService() ;
     }

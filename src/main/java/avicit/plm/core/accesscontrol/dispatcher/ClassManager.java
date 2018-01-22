@@ -12,6 +12,7 @@ import java.util.*;
 @Component
 public class ClassManager {
     private JclObjectFactory factory = JclObjectFactory.getInstance();
+    private JarClassLoader defaultClassLoader = new JarClassLoader() ;
     private final Map<String, JarClassLoader> loaders = Collections
             .synchronizedMap( new HashMap<String, JarClassLoader>() );
 
@@ -76,8 +77,17 @@ public class ClassManager {
     public Object newInstance(String className, Object... args) throws ClassNotFoundException {
         // see it this class loaded before
         if (classesNLoader.containsKey(className) ) {
-            JarClassLoader jarClassLoader = classesNLoader.get(className) ;
-            return factory.create(jarClassLoader, className, args) ;
+            JarClassLoader jcl = classesNLoader.get(className) ;
+            return factory.create(jcl, className, args) ;
+        }
+
+        if (loaders.isEmpty()) {
+            // no class loader customized - this also means that no user-defined component implentations are used.
+            // use default class loader
+            Object o =  factory.create(defaultClassLoader, className, args) ;
+            // so this class will always be loaded by defaultClassLoader
+            cacheLoader(defaultClassLoader, className) ;
+            return o ;
         }
 
         // iterate all loaders to find a loader
