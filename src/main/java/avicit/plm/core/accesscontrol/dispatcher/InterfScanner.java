@@ -29,8 +29,9 @@ public class InterfScanner {
         Reflections reflections  = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
                 .setScanners(new SubTypesScanner(false), new TypeAnnotationsScanner())
-               .filterInputsBy(new FilterBuilder().includePackage(rootPackage))
-               .addClassLoaders(new ArrayList<>(classLoaders)));
+                //.filterInputsBy(new FilterBuilder().includePackage(rootPackage)) // refolections:0.9.9 or above
+                .filterInputsBy(createPackageFilter(rootPackage)) // reflections:0.9.8
+                .addClassLoaders(new ArrayList<>(classLoaders)));
 
         Set<Class<?>> clazzes = reflections.getTypesAnnotatedWith(InterfClassDescription.class);
 
@@ -46,5 +47,15 @@ public class InterfScanner {
             }
         }
         return interfDescription ;
+    }
+
+    private FilterBuilder createPackageFilter(String...rootPackage) {
+        FilterBuilder packageFilters = new FilterBuilder() ;
+        for (String p : rootPackage) {
+            String pRegex = (p + ".").replace(".", "\\.") + ".*";
+            FilterBuilder.Include include = new FilterBuilder.Include(pRegex) ;
+            packageFilters.add(include) ;
+        }
+        return  packageFilters ;
     }
 }
